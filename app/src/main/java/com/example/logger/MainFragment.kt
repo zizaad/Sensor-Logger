@@ -1,11 +1,14 @@
-package com.example.logger   // замените на ваш пакет
+package com.example.logger
 
+import android.content.Context
+import android.hardware.Sensor
+import android.hardware.SensorManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 
@@ -38,7 +41,7 @@ class MainFragment : Fragment() {
         }
 
         btnSensorList.setOnClickListener {
-            Toast.makeText(requireContext(), "Здесь будет список всех датчиков", Toast.LENGTH_SHORT).show()
+            showSensorsListDialog()
         }
 
         btnAccelerometer.setOnClickListener {
@@ -54,5 +57,51 @@ class MainFragment : Fragment() {
                 .addToBackStack(null)
                 .commit()
         }
+    }
+
+    private fun showSensorsListDialog() {
+        val sensorManager = requireContext().getSystemService(Context.SENSOR_SERVICE) as SensorManager
+        val sensors = sensorManager.getSensorList(Sensor.TYPE_ALL)
+
+        if (sensors.isEmpty()) {
+            AlertDialog.Builder(requireContext())
+                .setTitle("Список датчиков")
+                .setMessage("На устройстве не найдено датчиков")
+                .setPositiveButton("OK", null)
+                .show()
+            return
+        }
+
+        val sensorItems = sensors.map { sensor ->
+            "${sensor.name} (${sensor.stringType})"
+        }.toTypedArray()
+
+        AlertDialog.Builder(requireContext())
+            .setTitle("Все датчики")
+            .setItems(sensorItems) { dialog, which ->
+                val selectedSensor = sensors[which]
+                showSensorDetails(selectedSensor)
+            }
+            .setPositiveButton("Закрыть", null)
+            .show()
+    }
+
+    private fun showSensorDetails(sensor: Sensor) {
+        val details = """
+            Название: ${sensor.name}
+            Тип: ${sensor.stringType}
+            Производитель: ${sensor.vendor}
+            Версия: ${sensor.version}
+            Разрешение: ${sensor.resolution}
+            Макс. диапазон: ${sensor.maximumRange}
+            Потребление: ${sensor.power} мА
+            Минимальная задержка: ${sensor.minDelay} мкс
+        """.trimIndent()
+
+        AlertDialog.Builder(requireContext())
+            .setTitle("Характеристики датчика")
+            .setMessage(details)
+            .setPositiveButton("OK", null)
+            .show()
     }
 }
