@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Заголовок -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Гироскоп"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- Область графиков -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <!-- Подпись оси Y -->
+        <TextView
+            android:id="@+id/tvYAxisLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="ω (рад/с)"
+            android:gravity="center"
+            android:rotation="-90"
+            android:textColor="@color/chart_text"
+            android:layout_marginEnd="8dp"/>
+
+        <!-- Контейнер с тремя графиками -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/chartX"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_marginBottom="4dp"/>
+
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/chartY"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_marginBottom="4dp"/>
+
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/chartZ"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+            <!-- Подпись оси X -->
+            <TextView
+                android:id="@+id/tvXAxisLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="t (с)"
+                android:gravity="center"
+                android:textColor="@color/chart_text"
+                android:layout_marginTop="8dp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Текущие значения -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp">
+
+        <TextView
+            android:id="@+id/tvX"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="X: 0.00"
+            android:textAlignment="center"
+            android:textColor="#FF4444"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/tvY"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Y: 0.00"
+            android:textAlignment="center"
+            android:textColor="#00AA00"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/tvZ"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Z: 0.00"
+            android:textAlignment="center"
+            android:textColor="#3333FF"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/tvAbs"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Abs: 0.00"
+            android:textAlignment="center"
+            android:textColor="#FFAA00"
+            android:textSize="16sp"/>
+    </LinearLayout>
+
+    <!-- Кнопки управления -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/btnStart"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginEnd="4dp"
+            android:text="Старт"/>
+
+        <Button
+            android:id="@+id/btnStop"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:text="Стоп"
+            android:enabled="false"/>
+
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="4dp"
+            android:text="Сохранить CSV"/>
+
+    </LinearLayout>
+
+    <!-- Кнопка назад -->
+    <Button
+        android:id="@+id/btnBack"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="На главную"/>
+
+</LinearLayout>
